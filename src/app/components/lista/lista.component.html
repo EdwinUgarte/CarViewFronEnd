@@ -1,0 +1,32 @@
+<div class="contenedor" *ngIf="carros.length > 0; else spinner">
+  <div class="card mb-3" style="max-width: 540px" *ngFor="let auto of carros">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          [src]="auto.fotoUrl"
+          alt="imagen_auto"
+          *ngIf="auto.fotoUrl; else other"
+        />
+        <ng-template #other>
+          <img
+            src="https://img.freepik.com/foto-gratis/vista-coche-3d-estilo-boceto_23-2151138916.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais"
+            alt="imagen_auto"
+        /></ng-template>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ auto.nombre }}</h5>
+          <p class="card-text">{{ auto.marca }}</p>
+          <p class="card-text">
+            <small class="text-body-secondary" [routerLink]="['/auto', auto._id]">Ver más...</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #spinner>
+  <div class="contSpinner">
+    <div class="spinner"></div>
+  </div>
+</ng-template>

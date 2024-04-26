@@ -1,0 +1,54 @@
+<div class="formulario">
+    <div class="image-container" *ngIf="auto.fotoUrl != null; else spinner">
+        <img [src]="auto.fotoUrl" alt="fotoAuto">
+    </div>
+    <ng-template #spinner>
+        <div class="contSpinner">
+          <div class="spinner"></div>
+        </div>
+      </ng-template>
+    <div class="info">
+        
+        <form #autoForm="ngForm">
+                <div class="mb-3">
+                  <div for="nombre" class="form-label" >Nombre:*</div>
+                         <input type="text" class="form-control" name="nombre" [(ngModel)]="auto.nombre" required #nombreError="ngModel" />
+                             <div class="error" *ngIf="nombreError.invalid && (nombreError.dirty || nombreError.touched)">
+                                <div *ngIf="nombreError.errors">Nombre es requerido</div>
+                             </div>
+                  
+                  <div for="marca" class="form-label" >Marca:*</div>
+                         <input type="text" class="form-control" name="marca" [(ngModel)]="auto.marca" #marcaError="ngModel" required/>
+                         <div class="error" *ngIf="marcaError.invalid && (marcaError.dirty || marcaError.touched)">
+                            <div *ngIf="nombreError.errors">Marca es requerido</div>
+                         </div>
+
+                  <div for="año" class="form-label">Año:*</div>
+                        <input type="number" class="form-control" name="year" [(ngModel)]="auto.year" #yearError="ngModel" min="1000" required/>
+                        <div class="error" *ngIf="yearError.invalid && (yearError.dirty || yearError.touched)">
+                        <div *ngIf="yearError.errors">Escribe un año valido</div>
+                        </div>
+
+                  <div for="tipo" class="form-label" >Tipo:*</div>
+                        <input type="text" class="form-control" name="tipo" [(ngModel)]="auto.tipo" #tipoError="ngModel" required/>
+                        <div class="error" *ngIf="tipoError.invalid && (tipoError.dirty || tipoError.touched)">
+                        <div *ngIf="tipoError.errors">Tipo es requerido</div>
+                        </div>
+
+                  <div for="foto" class="form-label" >Foto url:</div>
+                  <input type="text" class="form-control" name="foto" [(ngModel)]="auto.fotoUrl">
+
+            
+                  <div id="emailHelp" class="form-text">Favor de colocar en formato url.</div>
+
+                </div>
+
+                <button class="btn btn-primary" type="submit" [disabled]="autoForm.invalid" (click)="guardarAuto()"  *ngIf="(!auto._id);else btnActualizar">Guardar</button>
+                <ng-template  #btnActualizar>
+                    <button class="btn btn-primary mx-3" type="submit" [disabled]="autoForm.invalid" (click)="updateAuto()">Actualizar</button>
+                    <button class="btn btn-danger" type="submit"  (click)="updateAuto()">Eliminar</button>
+                </ng-template>
+
+        </form>
+    </div>
+</div>
